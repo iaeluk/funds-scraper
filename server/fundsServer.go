@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"funds/api"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -53,6 +54,11 @@ func FundsServer() {
 		w.Write(json)
 	})
 
-	fmt.Println("Rodando na porta 8080...")
-	http.ListenAndServe(":8080", nil)
+	porta := os.Getenv("PORT")
+	if porta == "" {
+		porta = "8080"
+	}
+
+	fmt.Println("Rodando na porta...", porta)
+	http.ListenAndServe(":"+porta, nil)
 }
